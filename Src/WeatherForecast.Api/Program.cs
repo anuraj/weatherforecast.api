@@ -48,6 +48,7 @@ builder.Services.AddSwaggerGen(options =>
     };
     var requirement = new OpenApiSecurityRequirement { { key, new List<string>() } };
     options.AddSecurityRequirement(requirement);
+    options.OperationFilter<CodeSamplesOperationFilter>();
 });
 
 var app = builder.Build();
@@ -62,6 +63,15 @@ if (app.Environment.IsDevelopment())
             options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
                 description.GroupName.ToUpperInvariant());
         }
+    });
+
+    app.UseReDoc(options =>
+    {
+        options.RoutePrefix = "docs";
+        options.SpecUrl = "/swagger/1.0/swagger.json";
+        options.HideDownloadButton();
+        options.HideHostname();
+        options.DocumentTitle = "WeatherForecast API";
     });
 }
 
