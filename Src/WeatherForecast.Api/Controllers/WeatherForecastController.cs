@@ -1,5 +1,6 @@
 using Asp.Versioning;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WeatherForecast.Api.Controllers;
@@ -9,6 +10,7 @@ namespace WeatherForecast.Api.Controllers;
 [ApiVersion(1.0)]
 [ApiVersion(2.0)]
 [ApiVersion(3.0)]
+[Authorize]
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
